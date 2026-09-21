@@ -4,7 +4,7 @@
 
 Dieses Repository ist die zweite von drei Gradle-Stufen. Gegenüber `gradle_01_wizard` kommt das Android-Library-Modul `Shared` hinzu. Das installierbare `app`-Modul kann dadurch gemeinsam verwendbaren Code und Android-Ressourcen aus `Shared` nutzen.
 
-Die Änderungen werden in [docs/Gradle.md](docs/Gradle.md) beschrieben. Die Basisdateien des Wizard-Projekts erläutert der [erste Stand](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md).
+Die Änderungen werden in [docs/Gradle_ger.md](docs/Gradle_ger.md) beschrieben. Zusätzlich gibt es eine [englische Version](docs/Gradle.md). Die Basisdateien des Wizard-Projekts erläutert der [erste Stand](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle_ger.md).
 
 ## Die drei Stufen
 
