@@ -2,7 +2,7 @@
 
 ## Stufe 2: Android Library ergänzen
 
-Dieses Projekt baut auf `gradle_01_wizard` auf. Die [Beschreibung der Gradle-Basisdateien](https://github.com/berndRog/gradle_02_shared/blob/master/docs/Gradle.md) gilt weiterhin. Neu sind das Modul `Shared`, seine Registrierung in `settings.gradle.kts`, das Android-Library-Plugin und die Abhängigkeit von `app` auf `Shared`.
+Dieses Projekt baut auf `gradle_01_wizard` auf. Die [Beschreibung der Gradle-Basisdateien](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md) gilt weiterhin. Neu sind das Modul `Shared`, seine Registrierung in `settings.gradle.kts`, das Android-Library-Plugin und die Abhängigkeit von `app` auf `Shared`.
 
 ```text
 gradle_02_shared/
@@ -118,4 +118,4 @@ Nützliche Befehle sind:
 
 `projects` zeigt die registrierten Module. Der vorangestellte Modulpfad bei den anderen Befehlen führt gezielt eine Aufgabe eines bestimmten Moduls aus.
 
-Die nächste Entwicklungsstufe zeigt das Projekt [`gradle_03_modules`](https://github.com/berndRog/gradle_02_shared/tree/modules). Dort werden die gemeinsamen Einstellungen der beiden Modul-Builddateien zentralisiert.
+Die nächste Entwicklungsstufe zeigt das Projekt [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules). Dort werden die gemeinsamen Einstellungen der beiden Modul-Builddateien zentralisiert.
