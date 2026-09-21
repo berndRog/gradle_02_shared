@@ -1,8 +1,10 @@
-# Gradle mit einem Shared-Modul
+# Gradle with a Shared Module
 
-## Stufe 2: Android Library ergänzen
+[Deutsche Version](Gradle_ger.md)
 
-Dieses Projekt baut auf `gradle_01_wizard` auf. Die [Beschreibung der Gradle-Basisdateien](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md) gilt weiterhin. Neu sind das Modul `Shared`, seine Registrierung in `settings.gradle.kts`, das Android-Library-Plugin und die Abhängigkeit von `app` auf `Shared`.
+## Stage 2: Adding an Android library
+
+This project builds on `gradle_01_wizard`. The [description of the basic Gradle files](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md) still applies. New elements are the `Shared` module, its registration in `settings.gradle.kts`, the Android library plugin, and the dependency from `app` to `Shared`.
 
 ```text
 gradle_02_shared/
@@ -17,20 +19,20 @@ gradle_02_shared/
 └── settings.gradle.kts
 ```
 
-## Änderung in `settings.gradle.kts`
+## Change in `settings.gradle.kts`
 
-Ein Verzeichnis wird nicht allein dadurch zu einem Gradle-Modul, dass es eine Builddatei enthält. Das Modul muss zusätzlich im Projekt registriert werden:
+A directory does not become a Gradle module merely because it contains a build file. The module must also be registered in the project:
 
 ```kotlin
 include(":app")
 include(":Shared")
 ```
 
-Der führende Doppelpunkt bezeichnet einen Modulpfad vom Root-Projekt aus. Gradle kennt in diesem Stand damit zwei Subprojekte.
+The leading colon denotes a module path starting at the root project. Gradle therefore knows two subprojects at this stage.
 
-## Android-Library-Plugin bereitstellen
+## Making the Android library plugin available
 
-Der Version Catalog enthält den Plugin-Alias:
+The version catalog contains the plugin alias:
 
 ```toml
 android-library = {
@@ -39,13 +41,13 @@ android-library = {
 }
 ```
 
-Das Root-`build.gradle.kts` stellt das Plugin bereit, ohne es auf das Root-Projekt anzuwenden:
+The root `build.gradle.kts` makes the plugin available without applying it to the root project:
 
 ```kotlin
 alias(libs.plugins.android.library) apply false
 ```
 
-Erst `Shared/build.gradle.kts` wendet es an:
+Only `Shared/build.gradle.kts` applies it:
 
 ```kotlin
 plugins {
@@ -56,59 +58,59 @@ plugins {
 }
 ```
 
-## Application- und Library-Modul
+## Application and library modules
 
-`app` verwendet `com.android.application`; `Shared` verwendet `com.android.library`.
+`app` uses `com.android.application`; `Shared` uses `com.android.library`.
 
-| Merkmal | `app` | `Shared` |
+| Characteristic | `app` | `Shared` |
 |---|---|---|
-| Ergebnis | installierbare APK/AAB | Android Archive (AAR) |
-| `applicationId` | erforderlich | nicht vorhanden |
-| `versionCode` / `versionName` | App-Version | nicht erforderlich |
+| Result | installable APK/AAB | Android Archive (AAR) |
+| `applicationId` | required | not present |
+| `versionCode` / `versionName` | app version | not required |
 | `namespace` | `de.rogallab.mobile` | `de.rogallab.mobile.shared` |
-| Startbar | ja | nein, nur über eine App nutzbar |
+| Launchable | yes | no, can only be used through an app |
 
-Beide Module besitzen einen eigenen `android`-Block, weil auch die Library gegen ein Android SDK kompiliert wird, eine minimale Android-Version unterstützt und Android-Ressourcen enthalten kann. Jeder Android-Namensraum muss eindeutig sein.
+Both modules have their own `android` block because the library is also compiled against an Android SDK, supports a minimum Android version, and may contain Android resources. Every Android namespace must be unique.
 
-`consumerProguardFiles("consumer-rules.pro")` benennt Regeln, die später zusammen mit der AAR an eine verwendende App weitergegeben werden. Das unterscheidet sich von Regeln, die nur den eigenen App-Build betreffen.
+`consumerProguardFiles("consumer-rules.pro")` specifies rules that are later passed to a consuming app together with the AAR. These differ from rules that affect only the app's own build.
 
-## Abhängigkeit von `app` auf `Shared`
+## Dependency from `app` to `Shared`
 
-Im `dependencies`-Block des `app`-Moduls steht:
+The `dependencies` block of the `app` module contains:
 
 ```kotlin
 implementation(project(":Shared"))
 ```
 
-`project(":Shared")` verweist auf ein Modul desselben Gradle-Builds und nicht auf eine externe Maven-Bibliothek. Dadurch kann `app` öffentliche Kotlin-Klassen, Composables und Android-Ressourcen aus `Shared` verwenden.
+`project(":Shared")` refers to a module in the same Gradle build, not to an external Maven library. This allows `app` to use public Kotlin classes, composables, and Android resources from `Shared`.
 
-Die Abhängigkeitsrichtung ist bewusst nur:
+The dependency deliberately points in only one direction:
 
 ```text
-app  ──verwendet──>  Shared
+app  ──uses──>  Shared
 ```
 
-`Shared` darf nicht umgekehrt von `app` abhängen. Das würde eine zyklische Abhängigkeit erzeugen und die Wiederverwendbarkeit der Library aufheben.
+`Shared` must not depend on `app` in the opposite direction. That would create a cyclic dependency and eliminate the library's reusability.
 
-## Abhängigkeiten sind modulspezifisch
+## Dependencies are module-specific
 
-Eine Deklaration in `app/build.gradle.kts` macht eine externe Bibliothek nicht automatisch im Quellcode von `Shared` verfügbar. Benötigt Code in `Shared` beispielsweise Room oder Compose, muss `Shared` diese Abhängigkeit selbst deklarieren.
+A declaration in `app/build.gradle.kts` does not automatically make an external library available to source code in `Shared`. If code in `Shared` needs Room or Compose, for example, `Shared` has to declare that dependency itself.
 
-Deshalb besitzen `app/build.gradle.kts` und `Shared/build.gradle.kts` in diesem Lernstand viele ähnliche Einträge. Diese Wiederholung ist hier didaktisch nützlich: Sie macht sichtbar, dass jedes Modul zunächst eigenständig konfiguriert wird.
+For this reason, `app/build.gradle.kts` and `Shared/build.gradle.kts` contain many similar entries at this learning stage. The repetition is useful for teaching: it makes clear that each module is initially configured independently.
 
-Später kann zwischen `implementation` und `api` unterschieden werden. `implementation` hält eine Abhängigkeit grundsätzlich als Implementierungsdetail des Moduls. `api` veröffentlicht sie an konsumierende Module und sollte nur verwendet werden, wenn Typen dieser Bibliothek tatsächlich Teil der öffentlichen Schnittstelle von `Shared` sind.
+Later, a distinction can be made between `implementation` and `api`. `implementation` generally keeps a dependency as an implementation detail of the module. `api` exposes it to consuming modules and should only be used if types from that library are actually part of the public interface of `Shared`.
 
-## Was ändert sich gegenüber `gradle_01_wizard`?
+## What changes compared with `gradle_01_wizard`?
 
-| Datei | Änderung |
+| File | Change |
 |---|---|
-| `settings.gradle.kts` | `include(":Shared")` registriert das neue Modul. |
-| Root-`build.gradle.kts` | stellt das Android-Library-Plugin bereit. |
-| `Shared/build.gradle.kts` | konfiguriert die neue Android Library. |
-| `app/build.gradle.kts` | bindet `Shared` mit `implementation(project(":Shared"))` ein. |
-| `gradle/libs.versions.toml` | enthält den Alias für das Library-Plugin. |
+| `settings.gradle.kts` | `include(":Shared")` registers the new module. |
+| Root `build.gradle.kts` | makes the Android library plugin available. |
+| `Shared/build.gradle.kts` | configures the new Android library. |
+| `app/build.gradle.kts` | includes `Shared` with `implementation(project(":Shared"))`. |
+| `gradle/libs.versions.toml` | contains the alias for the library plugin. |
 
-Nützliche Befehle sind:
+Useful commands include:
 
 ```bash
 ./gradlew projects
@@ -116,6 +118,6 @@ Nützliche Befehle sind:
 ./gradlew :Shared:test
 ```
 
-`projects` zeigt die registrierten Module. Der vorangestellte Modulpfad bei den anderen Befehlen führt gezielt eine Aufgabe eines bestimmten Moduls aus.
+`projects` lists the registered modules. The module path prefixed to the other commands runs a task for a specific module.
 
-Die nächste Entwicklungsstufe zeigt das Projekt [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules). Dort werden die gemeinsamen Einstellungen der beiden Modul-Builddateien zentralisiert.
+The next development stage is the [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules) project. It centralizes the common settings from the two module build files.
