@@ -1,15 +1,17 @@
-# Gradle-Beispiel: Shared Library
+# Gradle Example: Shared Library
 
-Dieses Repository ist die zweite von drei Gradle-Stufen. Gegenüber `gradle_01_wizard` kommt das Android-Library-Modul `Shared` hinzu. Das installierbare `app`-Modul kann dadurch gemeinsam verwendbaren Code und Android-Ressourcen aus `Shared` nutzen.
+[Deutsche Version](README_ger.md)
 
-Die Änderungen werden in [docs/Gradle.md](docs/Gradle.md) beschrieben. Die Basisdateien des Wizard-Projekts erläutert der [erste Stand](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md).
+This repository is the second of three Gradle stages. Compared with `gradle_01_wizard`, it adds the Android library module `Shared`. The installable `app` module can now use shared Kotlin code and Android resources from this library.
 
-## Die drei Stufen
+The changes are explained in German in [docs/Gradle.md](docs/Gradle.md). The [first project](https://github.com/berndRog/gradle_01_wizard/blob/master/docs/Gradle.md) explains the Gradle files of the wizard project.
 
-| Projekt | Inhalt | Schwerpunkt |
+## The three stages
+
+| Project | Contents | Focus |
 |---|---|---|
-| [`gradle_01_wizard`](https://github.com/berndRog/gradle_01_wizard) | ein `app`-Modul | Gradle-Dateien eines Wizard-Projekts |
-| [`gradle_02_shared`](https://github.com/berndRog/gradle_02_shared) | `app` und `Shared` | Application- und Library-Modul |
-| [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules) | zentrale Konfiguration für `app` und `Shared` | gemeinsame Einstellungen aus Moduldateien herausziehen |
+| [`gradle_01_wizard`](https://github.com/berndRog/gradle_01_wizard) | one `app` module | Gradle files of a wizard project |
+| [`gradle_02_shared`](https://github.com/berndRog/gradle_02_shared) | `app` and `Shared` | application and library modules |
+| [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules) | centralized configuration for `app` and `Shared` | extracting common settings from module build files |
 
-Die Änderungen gegenüber dem Ausgangsprojekt werden in der Gradle-Beschreibung dateibezogen gegenübergestellt.
+The Gradle guide compares the changed files with the initial project.
