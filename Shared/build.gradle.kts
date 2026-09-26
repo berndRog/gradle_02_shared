@@ -18,7 +18,7 @@ android {
 
    // The library is compiled against the same SDK as the application.
    compileSdk {
-      version = release(37)
+      version = release(37) { minorApiLevel = 1 }
    }
 
    defaultConfig {
