@@ -39,7 +39,7 @@ git status
 git commit -m "Initial course version"
 
 # GitLab verbinden: Beispiel-URL ersetzen
-git remote add origin 'https://gitlab.example.edu/gruppe/projekt.git'
+git remote add origin 'https://git-fkb.ostfalia.de/mobilesysteme2627/a2_01_count.git'
 
 # main nach GitLab übertragen und Tracking einrichten
 git push -u origin main
