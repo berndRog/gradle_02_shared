@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import de.rogallab.mobile.shared.domain.utilities.Alog
 import de.rogallab.mobile.ui.theme.AppTheme
 
@@ -40,7 +41,10 @@ class MainActivity : ComponentActivity() {
             ) { innerPadding ->
                Greeting(
                   name = "Android",
-                  modifier = Modifier.padding(innerPadding)
+                  modifier = Modifier
+                     .padding(innerPadding)
+                     .padding(horizontal = 8.dp)
+
                )
             }
          }
