@@ -1,0 +1,6 @@
+rm -rf .git
+git init -b main
+git add .
+git commit -m "Initial"
+git remote add origin https://git-fkb.ostfalia.de/mobilesysteme2627/A2_02_Layout
+git push -u origin main
