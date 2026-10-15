@@ -1,4 +1,4 @@
-package de.rogallab.mobile
+package de.rogallab.mobile.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,34 +13,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.rogallab.mobile.shared.domain.utilities.Alog
+import de.rogallab.mobile.ui.people.create_detail.PersonViewModel
+import de.rogallab.mobile.ui.people.create_detail.comp.PersonAdapter
 import de.rogallab.mobile.ui.theme.AppTheme
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
 
-      // Set up logging configuration for the application.
-      Alog.set(
-         useAndroidLog = true,
-         isVerbose = true,
-         isDebug = true,
-         isInfo = true,
-         isComp = true
-      )
-      Alog.d(TAG, "onCreate()")
-
       // Enable edge-to-edge display for the activity.
       enableEdgeToEdge()
 
       // Set the content of the activity to a Composable function.
       setContent {
+
+         // New-/DetailScreen
+         val personViewModel = koinViewModel<PersonViewModel> {
+            //parametersOf(null) // New Person
+            parametersOf("01000000-0000-0000-0000-000000000000")
+         }
+
+
          AppTheme {
+
             Scaffold(
                modifier = Modifier.fillMaxSize()
             ) { innerPadding ->
-               Greeting(
-                  name = "Android",
+
+               PersonAdapter(
+                  viewModel = personViewModel,
                   modifier = Modifier
                      .padding(innerPadding)
                      .padding(horizontal = 8.dp)
@@ -53,21 +57,5 @@ class MainActivity : ComponentActivity() {
 
    companion object {
       private const val TAG = "<-MainActivity"
-   }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-   Text(
-      text = "Hello $name!",
-      modifier = modifier
-   )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-   AppTheme {
-      Greeting("Android")
    }
 }
