@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 }
 
 // Name of the complete Gradle project.
-rootProject.name = "A2_04_LazyColumn"
+rootProject.name = "gradle_02_shared"
 
 // The app remains the installable entry point of the project.
 include(":app")
