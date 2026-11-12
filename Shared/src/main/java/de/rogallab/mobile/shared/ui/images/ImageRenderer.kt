@@ -31,7 +31,7 @@ fun ImageRenderer(
       if (imagePath.isNullOrBlank()) {
          Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
          ) {
             Icon(

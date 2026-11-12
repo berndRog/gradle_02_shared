@@ -24,7 +24,7 @@ class PickerHandlersInstrumentedTest {
    @Test
    fun singleGalleryPickerHandler_exposesContentAction() {
       composeRule.setContent {
-         SingleGalleryPickerHandler(
+         GalleryPickerHandlerSingle(
             onImageSelected = {},
          ) {
             Text("gallery-ready")
