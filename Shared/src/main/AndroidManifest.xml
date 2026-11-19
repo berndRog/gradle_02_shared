@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Shared is an Android Library. Its manifest is merged into the manifest of
-  every application module that depends on it.
--->
-<manifest />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <application>
+      <!-- Shares provisional camera files with an external camera application. -->
+      <provider
+         android:name="androidx.core.content.FileProvider"
+         android:authorities="${applicationId}.fileprovider"
+         android:exported="false"
+         android:grantUriPermissions="true">
+         <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/image_file_paths" />
+      </provider>
+   </application>
+
+</manifest>

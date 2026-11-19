@@ -13,9 +13,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.core.app.ActivityOptionsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import de.rogallab.mobile.shared.domain.io.CameraImageFile
-import de.rogallab.mobile.shared.domain.io.IImageFileStorage
-import de.rogallab.mobile.shared.domain.io.ImageFileFormat
+import de.rogallab.mobile.shared.domain.images.CameraImageFile
+import de.rogallab.mobile.shared.domain.images.IImageFileStorage
+import de.rogallab.mobile.shared.domain.images.ImageFileFormat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -151,6 +151,9 @@ class PickerResultsInstrumentedTest {
 
       override suspend fun copyImageToAppStorage(sourceUri: Uri): Result<String> =
          Result.failure(UnsupportedOperationException())
+      override suspend fun createPrivateImageFile(): Result<String> =
+         error("Private capture must not be used by this test")
+
       override suspend fun createCameraImageFile(): Result<CameraImageFile> =
          Result.success(CameraImageFile(path, uri))
       override suspend fun confirmCameraImageFile(imagePath: String): Result<String> {

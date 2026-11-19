@@ -12,7 +12,7 @@ gradle_02_shared/
 │   └── build.gradle.kts
 ├── Shared/
 │   ├── build.gradle.kts
-│   └── consumer-rules.pro
+│   └── consumer-rules.keep
 ├── gradle/
 │   └── libs.versions.toml
 ├── build.gradle.kts
@@ -72,7 +72,7 @@ plugins {
 
 Beide Module besitzen einen eigenen `android`-Block, weil auch die Library gegen ein Android SDK kompiliert wird, eine minimale Android-Version unterstützt und Android-Ressourcen enthalten kann. Jeder Android-Namensraum muss eindeutig sein.
 
-`consumerProguardFiles("consumer-rules.pro")` benennt Regeln, die später zusammen mit der AAR an eine verwendende App weitergegeben werden. Das unterscheidet sich von Regeln, die nur den eigenen App-Build betreffen.
+`consumerProguardFiles("consumer-rules.keep")` benennt Regeln, die später zusammen mit der AAR an eine verwendende App weitergegeben werden. Das unterscheidet sich von Regeln, die nur den eigenen App-Build betreffen.
 
 ## Abhängigkeit von `app` auf `Shared`
 
@@ -119,5 +119,3 @@ Nützliche Befehle sind:
 ```
 
 `projects` zeigt die registrierten Module. Der vorangestellte Modulpfad bei den anderen Befehlen führt gezielt eine Aufgabe eines bestimmten Moduls aus.
-
-Die nächste Entwicklungsstufe zeigt das Projekt [`gradle_03_modules`](https://github.com/berndRog/gradle_03_modules). Dort werden die gemeinsamen Einstellungen der beiden Modul-Builddateien zentralisiert.

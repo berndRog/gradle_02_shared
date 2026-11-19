@@ -1,4 +1,4 @@
-package de.rogallab.mobile.shared.domain.io
+package de.rogallab.mobile.shared.domain.images
 
 import android.net.Uri
 
@@ -23,7 +23,7 @@ interface IImageMediaStore {
    ): Result<Uri>
 
 
-   // Deletes one concrete MediaStore image URI owned by the app.
+   // Deletes one concrete MediaStore image Uri owned by the app.
    // A missing item is treated as already deleted.
    suspend fun deleteImageFromMediaStore(imageUri: Uri): Result<Unit>
 }

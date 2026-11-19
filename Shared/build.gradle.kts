@@ -18,7 +18,7 @@ android {
 
    // The library is compiled against the same SDK as the application.
    compileSdk {
-      version = release(37) { minorApiLevel = 1 }
+      version = release(37) { minorApiLevel = 2 }
    }
 
    defaultConfig {
@@ -30,7 +30,7 @@ android {
       testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
       // Consumer rules are applied later to every app using this library.
-      consumerProguardFiles("consumer-rules.pro")
+      consumerProguardFiles("consumer-rules.keep")
    }
 
    testOptions {
@@ -50,6 +50,11 @@ android {
       // Required when reusable Composables are placed in Shared.
       compose = true
    }
+}
+
+// Match the JVM test setup used by MobileSystems/Shared.
+tasks.withType<org.gradle.api.tasks.testing.Test>().configureEach {
+   jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
 
 dependencies {
@@ -103,7 +108,9 @@ dependencies {
    // -------------------------------------------------------------------------
    implementation(libs.coil.compose)
    implementation(libs.coil.network.okhttp)
+   implementation(libs.androidx.media3.common.ktx)
    implementation(libs.androidx.media3.exoplayer)
+   implementation(libs.androidx.media3.ui.compose)
 
    // -------------------------------------------------------------------------
    // Dependency injection with Koin

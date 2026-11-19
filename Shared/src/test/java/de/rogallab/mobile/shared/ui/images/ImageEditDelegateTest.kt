@@ -1,9 +1,9 @@
 package de.rogallab.mobile.shared.ui.images
 
 import android.net.Uri
-import de.rogallab.mobile.shared.domain.io.CameraImageFile
-import de.rogallab.mobile.shared.domain.io.IImageFileStorage
-import de.rogallab.mobile.shared.domain.io.ImageFileFormat
+import de.rogallab.mobile.shared.domain.images.CameraImageFile
+import de.rogallab.mobile.shared.domain.images.IImageFileStorage
+import de.rogallab.mobile.shared.domain.images.ImageFileFormat
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -125,6 +125,9 @@ class ImageEditDelegateTest {
 
       override suspend fun copyImageToAppStorage(sourceUri: Uri): Result<String> =
          Result.failure(UnsupportedOperationException())
+
+      override suspend fun createPrivateImageFile(): Result<String> =
+         error("Private capture must not be used by this test")
 
       override suspend fun createCameraImageFile(): Result<CameraImageFile> =
          Result.failure(UnsupportedOperationException())
